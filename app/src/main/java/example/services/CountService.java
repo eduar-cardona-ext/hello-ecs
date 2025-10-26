@@ -17,8 +17,4 @@ public class CountService {
     public long count() {
         return stringRedisTemplate.boundValueOps("counter").increment(1);
     }
-
-    private long fallbackCount() {
-        return -1;
-    }
 }

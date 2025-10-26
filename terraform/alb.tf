@@ -10,7 +10,7 @@ resource "aws_alb_target_group" "default" {
 
 resource "aws_alb" "default" {
   name            = local.name
-  subnets         = aws_subnet.public.*.id
+  subnets         = aws_subnet.public[*].id
   security_groups = [aws_security_group.alb.id]
 }
 

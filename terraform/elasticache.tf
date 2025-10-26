@@ -11,7 +11,7 @@ resource "aws_elasticache_cluster" "default" {
 
 resource "aws_elasticache_subnet_group" "default" {
   name       = local.name
-  subnet_ids = aws_subnet.public.*.id
+  subnet_ids = aws_subnet.public[*].id
 }
 
 resource "aws_security_group" "elasticache_sg" {
@@ -19,7 +19,7 @@ resource "aws_security_group" "elasticache_sg" {
   name   = "${local.name}-elasticache"
 }
 
-resource "aws_security_group_rule" "elasticache_ingresss_ecs" {
+resource "aws_security_group_rule" "elasticache_ingress_ecs" {
   security_group_id = aws_security_group.elasticache_sg.id
 
   type      = "ingress"
