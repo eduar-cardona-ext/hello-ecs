@@ -1,4 +1,4 @@
-resource "aws_alb_target_group" "default" {
+resource "aws_lb_target_group" "default" {
   name        = local.name
   port        = 8080
   protocol    = "HTTP"
@@ -8,19 +8,19 @@ resource "aws_alb_target_group" "default" {
   deregistration_delay = 0
 }
 
-resource "aws_alb" "default" {
+resource "aws_lb" "default" {
   name            = local.name
   subnets         = aws_subnet.public[*].id
   security_groups = [aws_security_group.alb.id]
 }
 
-resource "aws_alb_listener" "default" {
-  load_balancer_arn = aws_alb.default.id
+resource "aws_lb_listener" "default" {
+  load_balancer_arn = aws_lb.default.id
   port              = "80"
   protocol          = "HTTP"
 
   default_action {
-    target_group_arn = aws_alb_target_group.default.id
+    target_group_arn = aws_lb_target_group.default.id
     type             = "forward"
   }
 }
