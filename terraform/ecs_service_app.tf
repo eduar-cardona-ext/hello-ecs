@@ -28,7 +28,7 @@ resource "aws_ecs_service" "default" {
     assign_public_ip = true # not ideal, but to help avoid paying for a NAT gateway
   }
 
-  depends_on = [aws_alb.default]
+  depends_on = [aws_lb.default]
 
   # java app can take ~100 seconds to start up with
   # current memory settings
@@ -36,7 +36,7 @@ resource "aws_ecs_service" "default" {
   health_check_grace_period_seconds = 300
 
   load_balancer {
-    target_group_arn = aws_alb_target_group.default.arn
+    target_group_arn = aws_lb_target_group.default.arn
     container_name   = "hello-ecs"
     container_port   = 8080
   }
@@ -113,7 +113,7 @@ resource "aws_appautoscaling_policy" "app" {
 
     predefined_metric_specification {
       predefined_metric_type = "ALBRequestCountPerTarget"
-      resource_label         = "${aws_alb.default.arn_suffix}/${aws_alb_target_group.default.arn_suffix}"
+      resource_label         = "${aws_lb.default.arn_suffix}/${aws_lb_target_group.default.arn_suffix}"
     }
   }
 }
