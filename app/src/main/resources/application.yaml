@@ -1,13 +1,4 @@
-management:
-  security:
-    enabled: false
-
 server:
   jetty:
     accesslog:
       enabled: true
-
-spring:
-  jpa:
-    hibernate:
-      ddl-auto: create
